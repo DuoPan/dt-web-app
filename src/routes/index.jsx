@@ -8,10 +8,15 @@ export default class Routes extends React.Component {
   render () {
     return (
       <Router history={history}>
-        <Route path={'/'}>
+        <Route path={'/'} >
           <IndexRedirect to='home' />
           <Route path='home' getComponents={(nextState, cb) => {
             import(/* webpackChunkName: "home" */ 'containers/DemoHomePage')
+              .then(module => cb(null, module.default))
+              .catch(e => console.error(e))
+          }} />
+          <Route path='roi-map' getComponents={(nextState, cb) => {
+            import(/* webpackChunkName: "roi-map" */ 'containers/RoiMapPage')
               .then(module => cb(null, module.default))
               .catch(e => console.error(e))
           }} />

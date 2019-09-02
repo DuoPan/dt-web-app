@@ -4,9 +4,12 @@ import Banner from 'components/DemoCmpt'
 
 class Home extends React.Component {
   render () {
-    return <div>
-      <Banner text='Hello World!' />
-    </div>
+    console.log('hisssss:',this.props);
+    return (
+      <div onClick={() => this.props.router.push('/roi-map')} >
+        <Banner text='go to map' />
+      </div>
+    ); 
   }
 }
 
