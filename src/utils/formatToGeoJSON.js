@@ -1,6 +1,8 @@
 // Format Rules
 // https://en.wikipedia.org/wiki/GeoJSON
 
+import { saveAs } from 'file-saver';
+
 function getSinglePolygonCoordinates(polygon) {
   let points = polygon.getPath().getArray();
   let coordinates = [];
@@ -21,8 +23,8 @@ function getSinglePolygonCoordinates(polygon) {
  */
 function singlePolygon(polygon) {
   let coordinates = getSinglePolygonCoordinates(polygon);
-  console.log(coordinates);
-  return {
+
+  const result = {
     "type": "Feature",
     "geometry": {
       "type": "Polygon",
@@ -32,6 +34,10 @@ function singlePolygon(polygon) {
       "name": ""
     }
   };
+  let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
+  saveAs(blob, 'gj.txt');
+  console.log(result);
+  return result;
 }
 
 /**
@@ -52,8 +58,8 @@ function multiPolygon(polygons) {
   polygons.forEach(polygon => {
     coordinatesArray.push(getSinglePolygonCoordinates(polygon));
   });
-  console.log(coordinatesArray);
-  return {
+
+  const result = {
     "type": "Feature",
     "geometry": {
       "type": "MultiPolygon",
@@ -63,6 +69,10 @@ function multiPolygon(polygons) {
       "name": ""
     }
   };
+  let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
+  saveAs(blob, 'gj.txt');
+  console.log(result);
+  return result;
 }
 
 export default function formatToGeoJSON(polygons) {
