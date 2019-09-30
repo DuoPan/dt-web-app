@@ -8,9 +8,9 @@ function RoiMapPage() {
   return (
     <RoiMap 
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${getEnv().GOOGLE_MAP_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-      loadingElement={<div style={{ height: `100%` }} />}
+      loadingElement={<div style={{ height: `600px` }} />}
       containerElement={<div className={styles.root}/>}
-      mapElement={<div style={{ height: `100%` }} />}
+      mapElement={<div style={{ height: `600px` }} />}
     />
   );
 }

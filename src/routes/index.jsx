@@ -15,8 +15,13 @@ export default class Routes extends React.Component {
               .then(module => cb(null, module.default))
               .catch(e => console.error(e))
           }} />
-          <Route path='roi-map' getComponents={(nextState, cb) => {
-            import(/* webpackChunkName: "roi-map" */ 'containers/RoiMapPage')
+          <Route path='about' getComponents={(nextState, cb) => {
+            import(/* webpackChunkName: "about" */ 'containers/AboutPage')
+              .then(module => cb(null, module.default))
+              .catch(e => console.error(e))
+          }} />
+          <Route path='team' getComponents={(nextState, cb) => {
+            import(/* webpackChunkName: "team" */ 'containers/TeamPage')
               .then(module => cb(null, module.default))
               .catch(e => console.error(e))
           }} />

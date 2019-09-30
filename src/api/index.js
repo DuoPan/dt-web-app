@@ -1,13 +1,24 @@
-import myfetch from 'utils/myfetch'
+// import myfetch from 'utils/myfetch'
 import 'whatwg-fetch'
+import getEnv from '../../.env'
 
-const {HOST, apiPrefix} = globalConfig.default
+// const {HOST, apiPrefix} = globalConfig.default
+const {HOST, apiPrefix} = getEnv();
 
 export async function demoApi () {
   // const resp = await myfetch({
-  //   url: `${HOST}${apiPrefix}/status?scence_id=${userId}&status=${'start'}&bz_id=${bzId}`,
-  //   method: 'POST'
+  //   url: `${HOST}${apiPrefix}/helloWorld`,
+  //   method: 'GET'
   // })
+  // console.log(resp);
+  // return resp;
   // return resp && resp.succeed
-  return 'Done'
+}
+
+export async function helloWorldApi () {
+  const result = await fetch(`${HOST}${apiPrefix}/helloWorld`)
+    .then((data) => data.json())
+    .then((res) => res.data);
+    console.log('result', result)
+  return result;
 }

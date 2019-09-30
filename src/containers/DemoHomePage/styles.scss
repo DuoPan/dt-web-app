@@ -1,0 +1,24 @@
+.left {
+  width: 80%;
+}
+
+.dp {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.body {
+  margin-top: 20px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  margin-bottom: 20px;
+}

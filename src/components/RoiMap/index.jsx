@@ -3,6 +3,7 @@ import {withScriptjs, withGoogleMap, GoogleMap, Polygon} from 'react-google-maps
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
+import { helloWorldApi } from '../../api';
 
 const RoiMap = withScriptjs(withGoogleMap(() => {
   const [center, setCenter] = useState({lat: -37.817252, lng: 144.947494});
@@ -20,6 +21,9 @@ const RoiMap = withScriptjs(withGoogleMap(() => {
 
   function handleSend() {
     formatToGeoJSON(polygons);
+    // await demoApi();
+    console.log(helloWorldApi());
+    console.log('fdnaofndosino');
   }
 
   function renderButtonGroup() {
