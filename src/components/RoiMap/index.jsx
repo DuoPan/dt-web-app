@@ -60,6 +60,10 @@ const RoiMap = withScriptjs(withGoogleMap(({region}) => {
         <DrawingManager
           options={{
             drawingControl: allowDraw,
+            polygonOptions: {
+              editable: true,
+              draggable: true
+            }
           }}
           // onCircleComplete={props.onCircleComplete}
           // onMarkerComplete={props.onMarkerComplete}
@@ -77,7 +81,7 @@ const RoiMap = withScriptjs(withGoogleMap(({region}) => {
                 google.maps.drawing.OverlayType.POLYLINE,
                 google.maps.drawing.OverlayType.RECTANGLE,
               ],
-            },
+            }
           }}
         />
       </GoogleMap>
