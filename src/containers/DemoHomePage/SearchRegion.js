@@ -3,22 +3,23 @@ import {connect} from 'react-redux'
 import * as styles from './styles.scss'
 import {Dropdown, Button, Icon, Menu} from 'antd';
 
-function SearchRegion() {
+function SearchRegion({region, selectRegion}) {
   const [title, setTitle] = useState('Select Region');
+  function hanldeSelect(n, lat, lng) {
+    setTitle(n);
+    selectRegion({name: n, lat, lng});
+  }
 
   const menu = (
     <Menu>
-      <Menu.Item key="1" onClick={() => setTitle('Melbourne')}>
-        <Icon type="map" />
+      <Menu.Item key="1" onClick={() => hanldeSelect('Melbourne', -37.817252, 144.947494)}>
         Melbourne
       </Menu.Item>
-      <Menu.Item key="2" onClick={() => setTitle('Sydeny')}>
-        <Icon type="map" />
+      <Menu.Item key="2" onClick={() => hanldeSelect('Sydeny', -33.865143, 151.2099)}>
         Sydeny
       </Menu.Item>
-      <Menu.Item key="3" onClick={() => setTitle('Kan Pei La')}>
-        <Icon type="map" />
-        Kan Pei La
+      <Menu.Item key="3" onClick={() => hanldeSelect('Canberra', -35.343784, 149.082977)}>
+        Canberra
       </Menu.Item>
     </Menu>
   );
@@ -33,11 +34,15 @@ function SearchRegion() {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    region: state.region,
+  }
 };
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    selectRegion: (payload) => dispatch({ type: 'SELECT_REGION', payload })
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchRegion);

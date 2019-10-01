@@ -37,7 +37,7 @@ module.exports = {
         use: [{
           loader: 'babel-loader',
           options: {
-            presets: [['env', {modules: false}], 'react'],
+            presets: [['env', {modules: false}], 'react', "es2015", "stage-1",],
             plugins: ['syntax-dynamic-import', ['import', { libraryName: 'antd', style: true }]]
           }
         }]

@@ -16,7 +16,9 @@ function RoiMapPage() {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    
+  }
 }
 
 const mapDispatchToProps = dispatch => {

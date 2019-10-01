@@ -1,15 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {withScriptjs, withGoogleMap, GoogleMap, Polygon} from 'react-google-maps';
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
 import { helloWorldApi } from '../../api';
+import { connect } from 'react-redux'
 
-const RoiMap = withScriptjs(withGoogleMap(() => {
-  const [center, setCenter] = useState({lat: -37.817252, lng: 144.947494});
+const RoiMap = withScriptjs(withGoogleMap(({region}) => {
+  const [center, setCenter] = useState({lat: region.lat, lng: region.lng});
   const [allowDraw, setAllowDraw] = useState(false);
   const ref = React.createRef();
   const [polygons, setPolygons] = useState([]);
+
+  useEffect(
+    () => {
+      setCenter({lat: region.lat, lng: region.lng})
+    },
+    [region]
+  );
 
   function handleClear() {
     polygons.map(poly => {
@@ -78,4 +86,14 @@ const RoiMap = withScriptjs(withGoogleMap(() => {
   );
 }));
 
-export default RoiMap;
+const mapStateToProps = state => {
+  return {
+    region: state.region,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoiMap);

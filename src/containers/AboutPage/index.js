@@ -10,7 +10,7 @@ class AboutPage extends React.Component {
     return (
       <Layout>
         <Menu current={MENU_ITEMS.ABOUT} router={this.props.router}/>
-        <Typography>This is Team page</Typography>
+        <Typography>This is About page</Typography>
       </Layout>
     ); 
   }
