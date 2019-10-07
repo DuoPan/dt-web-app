@@ -34,8 +34,8 @@ function singlePolygon(polygon) {
       "name": ""
     }
   };
-  let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
-  saveAs(blob, 'gj.txt');
+  // let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
+  // saveAs(blob, 'gj.txt');
   console.log(result);
   return result;
 }
@@ -69,8 +69,8 @@ function multiPolygon(polygons) {
       "name": ""
     }
   };
-  let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
-  saveAs(blob, 'gj.txt');
+  // let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
+  // saveAs(blob, 'gj.txt');
   console.log(result);
   return result;
 }

@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux'
 import * as styles from './styles.scss'
 import {Dropdown, Button, Icon, Menu} from 'antd';
+import {selectRegion} from '../../actions';
 
-function SearchRegion({region, selectRegion}) {
+function SearchRegion({region, doSelectRegion}) {
   const [title, setTitle] = useState('Select Region');
   function hanldeSelect(n, lat, lng) {
     setTitle(n);
-    selectRegion({name: n, lat, lng});
+    doSelectRegion({name: n, lat, lng});
   }
 
   const menu = (
@@ -41,7 +42,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    selectRegion: (payload) => dispatch({ type: 'SELECT_REGION', payload })
+    doSelectRegion: (payload) => dispatch(selectRegion(payload)),
   }
 };
 

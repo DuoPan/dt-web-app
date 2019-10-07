@@ -3,10 +3,10 @@ import {withScriptjs, withGoogleMap, GoogleMap, Polygon} from 'react-google-maps
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
-import { helloWorldApi } from '../../api';
 import { connect } from 'react-redux'
+import {loadLineChartOption} from '../../actions';
 
-const RoiMap = withScriptjs(withGoogleMap(({region}) => {
+const RoiMap = withScriptjs(withGoogleMap(({region, doLoadLineChartOption}) => {
   const [center, setCenter] = useState({lat: region.lat, lng: region.lng});
   const [allowDraw, setAllowDraw] = useState(false);
   const ref = React.createRef();
@@ -21,17 +21,14 @@ const RoiMap = withScriptjs(withGoogleMap(({region}) => {
 
   function handleClear() {
     polygons.map(poly => {
-      console.log(poly);
+      console.log('clear polygon', poly);
       poly.setMap(null);
     });
     setPolygons([]);
   }
 
   function handleSend() {
-    formatToGeoJSON(polygons);
-    // await demoApi();
-    console.log(helloWorldApi());
-    console.log('fdnaofndosino');
+    doLoadLineChartOption(formatToGeoJSON(polygons));
   }
 
   function renderButtonGroup() {
@@ -97,7 +94,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    doLoadLineChartOption: (payload) => dispatch(loadLineChartOption(payload)),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoiMap);

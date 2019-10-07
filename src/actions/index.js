@@ -23,4 +23,22 @@ export const sendDemoRequest = (imgFile, param) => {
   }
 }
 
-// export const selectRegion = createAction(aTypes.SELECT_REGION, data => data)
+export const selectRegion = createAction(aTypes.SELECT_REGION, data => data);
+
+export const loadLineChartOption = (geoJson) => {
+  return {
+    types: [
+      aTypes.LOAD_LINE_CHART_OPTION,
+      aTypes.LOAD_LINE_CHART_OPTION_SUCCESS,
+      aTypes.LOAD_LINE_CHART_OPTION_ERROR,
+    ],
+    callAPI: async store => {
+      const resp = await api.loadLineChartOptionApi(geoJson)
+      return resp
+    },
+    errorHandler: e => {
+      window.alert('error')
+    }
+  }
+}
+

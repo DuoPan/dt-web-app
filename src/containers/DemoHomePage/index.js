@@ -7,8 +7,11 @@ import MENU_ITEMS from 'constants/menuItems';
 import SearchRegion from './SearchRegion';
 import { Button } from 'antd';
 import RoiMapPage from '../RoiMapPage';
+import LineChart from './LineChart';
+import dataStatus from '../../constants/dataStatus'
 
 class Home extends React.Component {
+
   render () {
     return (
       <Layout>
@@ -25,13 +28,18 @@ class Home extends React.Component {
             <Button className={styles.btn}>Search</Button>
           </div>
         </div>
+        <div style={{marginTop: 20}}>
+          {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart option={this.props.lineChartOption}/>)}
+        </div>
       </Layout>
-    ); 
+    );
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    lineChartOption: state.lineChartOption,
+  }
 }
 
 const mapDispatchToProps = dispatch => {
