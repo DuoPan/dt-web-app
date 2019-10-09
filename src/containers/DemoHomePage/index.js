@@ -6,7 +6,8 @@ import Layout from 'components/Layout';
 import MENU_ITEMS from 'constants/menuItems';
 import SearchRegion from './SearchRegion';
 import { Button } from 'antd';
-import RoiMapPage from '../RoiMapPage';
+import RoiMapWrapper from '../RoiMapWrapper';
+import HeatmapWrapper from '../HeatmapWrapper';
 import LineChart from './LineChart';
 import dataStatus from '../../constants/dataStatus'
 
@@ -20,7 +21,7 @@ class Home extends React.Component {
         <div className={styles.body}>
           <div className={styles.left}>
             <SearchRegion/>
-            <RoiMapPage/>
+            <RoiMapWrapper/>
           </div>
           <div className={styles.right}>
             <Button className={styles.btn}>Draw ROI</Button>
@@ -28,7 +29,8 @@ class Home extends React.Component {
             <Button className={styles.btn}>Search</Button>
           </div>
         </div>
-        <div style={{marginTop: 20}}>
+        <div className={styles.bt}>
+          {this.props.heatmapOption.status === dataStatus.SUCCESS && <HeatmapWrapper/>}
           {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart option={this.props.lineChartOption}/>)}
         </div>
       </Layout>
@@ -39,6 +41,7 @@ class Home extends React.Component {
 const mapStateToProps = state => {
   return {
     lineChartOption: state.lineChartOption,
+    heatmapOption: state.heatmapOption,
   }
 }
 

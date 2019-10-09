@@ -30,6 +30,17 @@ export async function loadLineChartOptionApi (postData) {
     method: 'POST',
     dataType: 'json',
   });
-  console.log('resp', resp)
-  return resp && resp.succeed
+  console.log('resp-chart', resp)
+  return resp; //&& resp.succeed
+}
+
+export async function loadHeatmapOptionApi (postData) {
+  const resp = await myfetch({
+    url: `${HOST}${apiPrefix}/loadHeatmapOption`,
+    data: postData,
+    method: 'POST',
+    dataType: 'json',
+  });
+  console.log('resp-heatmap', resp)
+  return resp; // && resp.succeed
 }

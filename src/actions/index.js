@@ -42,3 +42,20 @@ export const loadLineChartOption = (geoJson) => {
   }
 }
 
+export const loadHeatmapOption = (geoJson) => {
+  return {
+    types: [
+      aTypes.LOAD_HEAT_MAP_OPTION,
+      aTypes.LOAD_HEAT_MAP_OPTION_SUCCESS,
+      aTypes.LOAD_HEAT_MAP_OPTION_ERROR,
+    ],
+    callAPI: async store => {
+      const resp = await api.loadHeatmapOptionApi(geoJson);
+      console.log('callAPI', resp)
+      return resp
+    },
+    errorHandler: e => {
+      window.alert('error')
+    }
+  }
+}

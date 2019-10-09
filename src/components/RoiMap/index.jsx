@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {withScriptjs, withGoogleMap, GoogleMap, Polygon} from 'react-google-maps';
+import {withScriptjs, withGoogleMap, GoogleMap} from 'react-google-maps';
 const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
 import { connect } from 'react-redux'
-import {loadLineChartOption} from '../../actions';
+import {loadLineChartOption, loadHeatmapOption} from '../../actions';
 
-const RoiMap = withScriptjs(withGoogleMap(({region, doLoadLineChartOption}) => {
+const RoiMap = withScriptjs(withGoogleMap(({
+  region,
+  doLoadLineChartOption,
+  doLoadHeatmapOption
+}) => {
   const [center, setCenter] = useState({lat: region.lat, lng: region.lng});
   const [allowDraw, setAllowDraw] = useState(false);
   const ref = React.createRef();
@@ -28,7 +32,9 @@ const RoiMap = withScriptjs(withGoogleMap(({region, doLoadLineChartOption}) => {
   }
 
   function handleSend() {
-    doLoadLineChartOption(formatToGeoJSON(polygons));
+    const r = formatToGeoJSON(polygons);
+    doLoadLineChartOption(r);
+    doLoadHeatmapOption(r);
   }
 
   function renderButtonGroup() {
@@ -96,6 +102,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     doLoadLineChartOption: (payload) => dispatch(loadLineChartOption(payload)),
+    doLoadHeatmapOption: (payload) => dispatch(loadHeatmapOption(payload)),
   }
 }
 
