@@ -30,7 +30,6 @@ export async function loadLineChartOptionApi (postData) {
     method: 'POST',
     dataType: 'json',
   });
-  console.log('resp-chart', resp)
   return resp; //&& resp.succeed
 }
 
@@ -41,6 +40,5 @@ export async function loadHeatmapOptionApi (postData) {
     method: 'POST',
     dataType: 'json',
   });
-  console.log('resp-heatmap', resp)
   return resp; // && resp.succeed
 }

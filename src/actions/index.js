@@ -51,7 +51,6 @@ export const loadHeatmapOption = (geoJson) => {
     ],
     callAPI: async store => {
       const resp = await api.loadHeatmapOptionApi(geoJson);
-      console.log('callAPI', resp)
       return resp
     },
     errorHandler: e => {
