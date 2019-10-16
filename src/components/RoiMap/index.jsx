@@ -49,6 +49,12 @@ const RoiMap = withScriptjs(withGoogleMap(({
   }
 
   function onPolygonComplete(poly) {
+    let area = google.maps.geometry.spherical.computeArea(poly.getPath());
+    if (area.toFixed(2) >= 10000000) {
+      poly.setMap(null);
+      alert('Too Big Area');
+      return;
+    }
     setPolygons([...polygons, poly]);
   }
 

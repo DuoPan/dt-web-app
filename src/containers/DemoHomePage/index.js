@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import * as styles from './styles.scss'
-import Banner from 'components/DemoCmpt'
+import DoodleImage from './DoodleImage'
 import Menu from 'components/Menu';
 import Layout from 'components/Layout';
 import MENU_ITEMS from 'constants/menuItems';
@@ -17,7 +17,7 @@ class Home extends React.Component {
     return (
       <Layout>
         <Menu current={MENU_ITEMS.HOME} router={this.props.router}/>
-        <Banner text='Here is a pic' />
+        <DoodleImage/>
         <div className={styles.body}>
           <div className={styles.left}>
             <SearchRegion/>
