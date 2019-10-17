@@ -8,8 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {
     LoaderOptionsPlugin,
     ProvidePlugin,
-    HashedModuleIdsPlugin,
-    DefinePlugin
+    HashedModuleIdsPlugin
 } = webpack
 
 let configPath = path.resolve(__dirname, '../configs/dist')
@@ -24,7 +23,7 @@ module.exports = env => {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[name].[chunkhash].js',
       path: path.resolve(__dirname, '../dist'),
-      publicPath: '/dist/'
+      publicPath: '/set_fe/dist/'
     },
     performance: {
       hints: 'warning', // enum
@@ -71,7 +70,7 @@ module.exports = env => {
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
-                publicPath: '/dist/'
+                publicPath: '/set_fe/dist/'
               }
             },
             {

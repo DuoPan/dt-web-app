@@ -2,7 +2,7 @@
 
 ## Install
 ```
-npm install # node version 7x
+npm install # node version >8x
 ```
 
 ## Run in dev mode
@@ -10,3 +10,9 @@ npm install # node version 7x
 npm start
 ```
 check localhost:8089 in browser
+
+## Build frontend bundle
+```
+npm run dist
+```
+

@@ -4,11 +4,7 @@ node_modules
 */npm-debug.log*
 */access.log
 *.log
-*/dist/[^.]*
-!*/dist/ico
-!*/dist/font
-!*/dist/banners
-!*/dist/styles
+/dist/
 .vscode
 
 */www/[^.]*
