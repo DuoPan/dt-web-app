@@ -24,7 +24,7 @@ module.exports = (env) => {
     },
     output: {
       path: path.resolve(__dirname, '../dev/dist'),
-      publicPath: '/dist/'
+      publicPath: '/set_fe/dist/'
     },
     devServer: {
       hot: true,
@@ -75,7 +75,7 @@ module.exports = (env) => {
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
-                publicPath: '/dist/'
+                publicPath: '/set_fe/dist/'
               }
             },
             {
