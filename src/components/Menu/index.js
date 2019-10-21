@@ -1,8 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import * as styles from './style.scss'
-import { Menu, Icon } from 'antd';
+import { Icon } from 'antd';
 import MENU_ITEMS from '../../constants/menuItems';
 import {rootPath} from 'configs'; // component依赖全局配置是不太好的做法，应该从父组件传prop下来，我比较懒....
 
@@ -11,24 +10,27 @@ function MyMenu({
   current = MENU_ITEMS.HOME,
 } = props) {
   function handleClick(e) {
-    router.push(`${rootPath}/${e.key}`);
+    router.push(`${rootPath}/${e}`);
   }
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className={styles.menu}>
-      <Menu.Item key="home">
-        <Icon type="home" />
-        Home
-      </Menu.Item>
-      <Menu.Item key="about">
-        <Icon type="info-circle" />
-        About
-      </Menu.Item>
-      <Menu.Item key="team">
-        <Icon type="team" />
-        Team
-      </Menu.Item>
-    </Menu>
+    <div className={styles.rowSp}>
+      <img src={require('../../../asset/logo.png')} alt={'logo'} width={200} height={200} />
+      <div className={styles.menu}>
+        <div key="home" className={styles.item} style={{color: current === 'home' ? '#eee9a3' : '#fff'}} onClick={() => handleClick('home')}>
+          <Icon type="home" style={{fontSize: 18}}/>
+          &nbsp;Home
+        </div>
+        <div key="about" className={styles.item} style={{color: current === 'about' ? '#eee9a3' : '#fff'}} onClick={() => handleClick('about')}>
+          <Icon type="info-circle" style={{fontSize: 18}}/>
+          &nbsp;About
+        </div>
+        <div key="team" className={styles.item} style={{color: current === 'team' ? '#eee9a3' : '#fff'}} onClick={() => handleClick('team')}>
+          <Icon type="team" style={{fontSize: 18}}/>
+          &nbsp;Team
+        </div>
+      </div>
+    </div>
   );
 }
 

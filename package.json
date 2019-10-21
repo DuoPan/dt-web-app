@@ -64,6 +64,8 @@
     "lodash": "^4.6.1",
     "moment": "^2.24.0",
     "prop-types": "^15.5.4",
+    "rc-texty": "^0.2.0",
+    "rc-tween-one": "^2.6.5",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-google-maps": "^9.4.5",

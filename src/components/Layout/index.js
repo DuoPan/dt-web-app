@@ -6,6 +6,7 @@ function Layout({children}) {
   return (
     <div className={styles.root}>
       {children}
+      <div className={styles.foot}/>
     </div>
   );
 }

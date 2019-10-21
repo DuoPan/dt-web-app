@@ -7,9 +7,9 @@ function getSinglePolygonCoordinates(polygon) {
   let points = polygon.getPath().getArray();
   let coordinates = [];
   points.forEach(point => {
-    coordinates.push([point.lat(), point.lng()]);
+    coordinates.push([point.lng(), point.lat()]);
   });
-  coordinates.push([points[0].lat(), points[0].lng()]);
+  coordinates.push([points[0].lng(), points[0].lat()]);
   return coordinates;
 }
 
@@ -24,7 +24,7 @@ function getSinglePolygonCoordinates(polygon) {
 function singlePolygon(polygon) {
   let coordinates = getSinglePolygonCoordinates(polygon);
 
-  const result = {
+  const result = {'geo_json': {
     "type": "Feature",
     "geometry": {
       "type": "Polygon",
@@ -33,7 +33,7 @@ function singlePolygon(polygon) {
     "properties": {
       "name": ""
     }
-  };
+  }};
   // let blob = new Blob([JSON.stringify(result, null, 2)], {type : 'application/json'});
   // saveAs(blob, 'gj.txt');
   console.log(result);

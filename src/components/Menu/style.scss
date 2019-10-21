@@ -1,3 +1,24 @@
 .menu {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  background-color: transparent;
+  display: flex;
+}
+
+.rowSp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #55a34e;
+}
+
+.item {
+  color: #fff;
+  font-size: 18px;
+  padding: 0 40px;
+}
+
+.item:hover {
+  color: #e5e59e !important;
 }
