@@ -1,3 +1,4 @@
+import React from 'react'
 import {connect} from 'react-redux'
 import * as styles from './styles.scss'
 import DoodleImage from './DoodleImage'
@@ -8,8 +9,10 @@ import SearchRegion from './SearchRegion';
 import { Button } from 'antd';
 import RoiMapWrapper from '../RoiMapWrapper';
 import HeatmapWrapper from '../HeatmapWrapper';
+import TileImageWrapper from '../TileImageWrapper';
 import LineChart from './LineChart';
 import dataStatus from '../../constants/dataStatus'
+import SelectBar from './SelectBar';
 
 class Home extends React.Component {
 
@@ -30,9 +33,11 @@ class Home extends React.Component {
           </div>
         </div>
         <div className={styles.bt}>
+          {this.props.tileImages.status === dataStatus.SUCCESS && <TileImageWrapper/>}
           {this.props.heatmapOption.status === dataStatus.SUCCESS && <HeatmapWrapper/>}
           {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart option={this.props.lineChartOption}/>)}
         </div>
+        <SelectBar/>
       </Layout>
     );
   }
@@ -42,6 +47,7 @@ const mapStateToProps = state => {
   return {
     lineChartOption: state.lineChartOption,
     heatmapOption: state.heatmapOption,
+    tileImages: state.tileImages,
   }
 }
 

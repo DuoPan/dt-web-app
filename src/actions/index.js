@@ -25,6 +25,8 @@ export const sendDemoRequest = (imgFile, param) => {
 
 export const selectRegion = createAction(aTypes.SELECT_REGION, data => data);
 
+export const selectSerialNumber = createAction(aTypes.SELECT_SERIAL_NUMBER, data => data);
+
 export const loadLineChartOption = (geoJson) => {
   return {
     types: [
@@ -51,6 +53,23 @@ export const loadHeatmapOption = (geoJson) => {
     ],
     callAPI: async store => {
       const resp = await api.loadHeatmapOptionApi(geoJson);
+      return resp
+    },
+    errorHandler: e => {
+      window.alert('error')
+    }
+  }
+}
+
+export const loadTileImages = (geoJson) => {
+  return {
+    types: [
+      aTypes.LOAD_TILE_IMAGES,
+      aTypes.LOAD_TILE_IMAGES_SUCCESS,
+      aTypes.LOAD_TILE_IMAGES_ERROR,
+    ],
+    callAPI: async store => {
+      const resp = await api.loadTileImagesApi(geoJson);
       return resp
     },
     errorHandler: e => {

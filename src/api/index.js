@@ -35,8 +35,19 @@ export async function loadLineChartOptionApi (postData) {
 
 export async function loadHeatmapOptionApi (postData) {
   const resp = await myfetch({
-    // url: `${HOST}${apiPrefix}/loadHeatmapOption`,
-    url: `http://10.0.0.56:5000/api/v1/score/heatmap`,
+    url: `${HOST}${apiPrefix}/loadHeatmapOption`,
+    // url: `http://10.0.0.56:5000/api/v1/score/heatmap`,
+    data: postData,
+    method: 'POST',
+    dataType: 'json',
+  });
+  return resp; // && resp.succeed
+}
+
+export async function loadTileImagesApi (postData) {
+  const resp = await myfetch({
+    url: `${HOST}${apiPrefix}/loadTileImages`,
+    // url: `http://10.0.0.56:5000/api/v1/score/tiles`,
     data: postData,
     method: 'POST',
     dataType: 'json',

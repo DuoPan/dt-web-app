@@ -4,12 +4,14 @@ const { DrawingManager } = require("react-google-maps/lib/components/drawing/Dra
 import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
 import { connect } from 'react-redux'
-import {loadLineChartOption, loadHeatmapOption} from '../../actions';
+import {loadLineChartOption, loadHeatmapOption, loadTileImages, selectSerialNumber} from '../../actions';
 
 const RoiMap = withScriptjs(withGoogleMap(({
   region,
   doLoadLineChartOption,
-  doLoadHeatmapOption
+  doLoadHeatmapOption,
+  doLoadTileImages,
+  doSelectSerialNumber,
 }) => {
   const [center, setCenter] = useState({lat: region.lat, lng: region.lng});
   const [allowDraw, setAllowDraw] = useState(false);
@@ -29,12 +31,15 @@ const RoiMap = withScriptjs(withGoogleMap(({
       poly.setMap(null);
     });
     setPolygons([]);
+    doSelectSerialNumber({cur: -1});
   }
 
   function handleSend() {
     const r = formatToGeoJSON(polygons);
     doLoadLineChartOption(r);
     doLoadHeatmapOption(r);
+    doLoadTileImages(r);
+    doSelectSerialNumber({cur: 0});
   }
 
   function renderButtonGroup() {
@@ -109,6 +114,8 @@ const mapDispatchToProps = dispatch => {
   return {
     doLoadLineChartOption: (payload) => dispatch(loadLineChartOption(payload)),
     doLoadHeatmapOption: (payload) => dispatch(loadHeatmapOption(payload)),
+    doLoadTileImages: (payload) => dispatch(loadTileImages(payload)),
+    doSelectSerialNumber: (payload) => dispatch(selectSerialNumber(payload)),
   }
 }
 
