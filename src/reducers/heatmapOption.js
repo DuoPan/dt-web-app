@@ -3,20 +3,27 @@ import dataStatus from '../constants/dataStatus'
 
 const initialState = {
   status: dataStatus.INIT,
-  lat: -37.817252,
-  lng: 144.947494,
+  data: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS: {
-      const { lat, lng } = action.payload.data;
+      const { data } = action.payload;
+      let _data = [];
+      data.forEach(function (elem) {
+        _data.push(elem.heatmap.map(function (item) {
+          return [item[1], item[0], item[2] || '-'];
+        }))
+      });
       return {
         ...state,
         status: dataStatus.SUCCESS,
-        lat: lat,
-        lng: lng,
+        data: _data,
       };
+    }
+    case actionTypes.RESET_ALL_IMAGES: {
+      return initialState;
     }
     default:
       return state;

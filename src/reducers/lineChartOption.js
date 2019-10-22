@@ -23,6 +23,9 @@ export default function (state = initialState, action) {
         status: dataStatus.SUCCESS,
       };
     }
+    case actionTypes.RESET_ALL_IMAGES: {
+      return initialState;
+    }
     default:
       return state;
   }

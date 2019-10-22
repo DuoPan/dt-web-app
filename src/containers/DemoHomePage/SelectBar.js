@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Typography from 'antd/lib/typography/Typography';
-import Button from 'antd/lib/Button/Button';
-import { Icon } from 'antd';
+import { Icon, Button } from 'antd';
 import { selectSerialNumber } from '../../actions'
 
 function SelectBar({tileImages, serialNumber, doSelectSerialNumber}) {

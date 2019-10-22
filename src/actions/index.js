@@ -27,6 +27,9 @@ export const selectRegion = createAction(aTypes.SELECT_REGION, data => data);
 
 export const selectSerialNumber = createAction(aTypes.SELECT_SERIAL_NUMBER, data => data);
 
+export const resetAllImages = createAction(aTypes.RESET_ALL_IMAGES);
+
+
 export const loadLineChartOption = (geoJson) => {
   return {
     types: [

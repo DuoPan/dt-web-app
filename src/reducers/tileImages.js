@@ -16,6 +16,9 @@ export default function (state = initialState, action) {
         data: data,
       };
     }
+    case actionTypes.RESET_ALL_IMAGES: {
+      return initialState;
+    }
     default:
       return state;
   }

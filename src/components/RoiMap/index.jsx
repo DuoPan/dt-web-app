@@ -4,7 +4,7 @@ const { DrawingManager } = require("react-google-maps/lib/components/drawing/Dra
 import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
 import { connect } from 'react-redux'
-import {loadLineChartOption, loadHeatmapOption, loadTileImages, selectSerialNumber} from '../../actions';
+import {loadLineChartOption, loadHeatmapOption, loadTileImages, selectSerialNumber, resetAllImages} from '../../actions';
 
 const RoiMap = withScriptjs(withGoogleMap(({
   region,
@@ -12,6 +12,7 @@ const RoiMap = withScriptjs(withGoogleMap(({
   doLoadHeatmapOption,
   doLoadTileImages,
   doSelectSerialNumber,
+  doResetAllImages,
 }) => {
   const [center, setCenter] = useState({lat: region.lat, lng: region.lng});
   const [allowDraw, setAllowDraw] = useState(false);
@@ -32,6 +33,7 @@ const RoiMap = withScriptjs(withGoogleMap(({
     });
     setPolygons([]);
     doSelectSerialNumber({cur: -1});
+    doResetAllImages();
   }
 
   function handleSend() {
@@ -116,6 +118,7 @@ const mapDispatchToProps = dispatch => {
     doLoadHeatmapOption: (payload) => dispatch(loadHeatmapOption(payload)),
     doLoadTileImages: (payload) => dispatch(loadTileImages(payload)),
     doSelectSerialNumber: (payload) => dispatch(selectSerialNumber(payload)),
+    doResetAllImages: (payload) => dispatch(resetAllImages(payload)),
   }
 }
 

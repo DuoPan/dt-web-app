@@ -1,37 +1,73 @@
-import React, {useState, useEffect} from 'react';
-import {withScriptjs, withGoogleMap, GoogleMap} from 'react-google-maps';
+import React, {useRef, useEffect} from 'react';
 import { connect } from 'react-redux'
-import dataStatus from '../../constants/dataStatus'
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/heatmap';
+import * as styles from '../../containers/DemoHomePage/styles.scss'
 
-const Heatmap = withScriptjs(withGoogleMap(({heatmapOption}) => {
-  const [center, setCenter] = useState({lat: heatmapOption.lat, lng: heatmapOption.lng});
-  const ref = React.createRef();
+function Heatmap({heatmapOption, serialNumber}) {
+  const chartRef = useRef(null);
+  let chartInstance = null;
 
   useEffect(
     () => {
-      if (heatmapOption.status === dataStatus.SUCCESS) {
-        setCenter({lat: heatmapOption.lat, lng: heatmapOption.lng})
+      const renderedInstance = echarts.getInstanceByDom(chartRef.current)
+      if (renderedInstance) {
+        chartInstance = renderedInstance
+      } else {
+        chartInstance = echarts.init(chartRef.current)
       }
+
+      const options = {
+        grid: {
+          height: '50%',
+          y: '10%'
+        },
+        xAxis: {
+          show: false,
+        },
+        yAxis: {
+          show: false,
+        },
+        visualMap: {
+          min: 0,
+          max: 20,
+          calculable: true,
+          orient: 'horizontal',
+          left: 'center',
+          bottom: '15%'
+        },
+        series: [{
+          name: 'Punch Card',
+          type: 'heatmap',
+          data: heatmapOption.data[serialNumber.cur],
+          label: {
+            normal: {
+              show: true
+            }
+          },
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }]
+      };
+      chartInstance.setOption(options);
     },
-    [heatmapOption]
+    [serialNumber.cur]
   );
 
   return (
-    <React.Fragment>
-      <GoogleMap
-        ref={ref}
-        defaultZoom={18}
-        center={center}
-        onCenterChanged={() => setCenter({lat: ref.current.getCenter().lat(), lng: ref.current.getCenter().lng()})}
-      >
-      </GoogleMap>
-    </React.Fragment>
+    <div ref={chartRef} className={styles.chart}/>
   );
-}));
+}
+
 
 const mapStateToProps = state => {
   return {
     heatmapOption: state.heatmapOption,
+    serialNumber: state.serialNumber,
   }
 }
 

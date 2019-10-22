@@ -34,7 +34,7 @@ class Home extends React.Component {
         </div>
         <div className={styles.bt}>
           {this.props.tileImages.status === dataStatus.SUCCESS && <TileImageWrapper/>}
-          {this.props.heatmapOption.status === dataStatus.SUCCESS && <HeatmapWrapper/>}
+          {this.props.heatmapOption.status === dataStatus.SUCCESS  && <HeatmapWrapper/>}
           {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart option={this.props.lineChartOption}/>)}
         </div>
         <SelectBar/>
@@ -48,6 +48,7 @@ const mapStateToProps = state => {
     lineChartOption: state.lineChartOption,
     heatmapOption: state.heatmapOption,
     tileImages: state.tileImages,
+    serialNumber: state.serialNumber,
   }
 }
 
