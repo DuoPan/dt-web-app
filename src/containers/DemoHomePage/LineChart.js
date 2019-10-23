@@ -4,7 +4,7 @@ import * as styles from './styles.scss'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 
-function LineChart({option}) {
+function LineChart({lineChartOption, serialNumber}) {
   const chartRef = useRef(null);
   let chartInstance = null;
 
@@ -16,9 +16,24 @@ function LineChart({option}) {
       } else {
         chartInstance = echarts.init(chartRef.current)
       }
-      chartInstance.setOption(option)
+
+      const options = {
+        xAxis: {
+          show: false,
+          data: lineChartOption.data[serialNumber.cur].x_value
+        },
+        yAxis: {
+          show: false,
+        },
+        series: [{
+          data: lineChartOption.data[serialNumber.cur].y_value,
+          type: 'line'
+        }]
+      };
+
+      chartInstance.setOption(options)
     },
-    []
+    [serialNumber.cur]
   );
 
   return (
@@ -28,6 +43,8 @@ function LineChart({option}) {
 
 const mapStateToProps = state => {
   return {
+    lineChartOption: state.lineChartOption,
+    serialNumber: state.serialNumber,
   }
 };
 

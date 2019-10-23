@@ -13,6 +13,7 @@ import TileImageWrapper from '../TileImageWrapper';
 import LineChart from './LineChart';
 import dataStatus from '../../constants/dataStatus'
 import SelectBar from './SelectBar';
+import serialNumber from '../../reducers/serialNumber'
 
 class Home extends React.Component {
 
@@ -35,7 +36,7 @@ class Home extends React.Component {
         <div className={styles.bt}>
           {this.props.tileImages.status === dataStatus.SUCCESS && <TileImageWrapper/>}
           {this.props.heatmapOption.status === dataStatus.SUCCESS  && <HeatmapWrapper/>}
-          {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart option={this.props.lineChartOption}/>)}
+          {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart/>)}
         </div>
         <SelectBar/>
       </Layout>

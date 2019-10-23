@@ -34,7 +34,8 @@ function Heatmap({heatmapOption, serialNumber}) {
           calculable: true,
           orient: 'horizontal',
           left: 'center',
-          bottom: '15%'
+          bottom: '15%',
+          color: ['#d94e5d','#eac736','#50a3ba'],
         },
         series: [{
           name: 'Punch Card',
