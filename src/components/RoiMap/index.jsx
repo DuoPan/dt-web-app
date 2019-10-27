@@ -5,6 +5,7 @@ import {Button} from 'antd';
 import formatToGeoJSON from '../../utils/formatToGeoJSON';
 import { connect } from 'react-redux'
 import {loadLineChartOption, loadHeatmapOption, loadTileImages, selectSerialNumber, resetAllImages} from '../../actions';
+import SearchRegion from '../../containers/DemoHomePage/SearchRegion';
 
 const RoiMap = withScriptjs(withGoogleMap(({
   region,
@@ -45,12 +46,23 @@ const RoiMap = withScriptjs(withGoogleMap(({
   }
 
   function renderButtonGroup() {
-    return ( 
-      <div>
-        <Button onClick={() => setAllowDraw(true)}>Start Draw</Button>
-        <Button onClick={() => setAllowDraw(false)}>Stop</Button>
-        <Button onClick={handleClear}>Clear</Button>
-        <Button onClick={handleSend}>Send GeoJSON</Button>
+    return (
+      <div style={{display: 'flex'}}>
+        <div style={{width: 150}} />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '35vw',
+            justifyContent: 'space-around',
+          }}
+        >
+          <SearchRegion/>
+          <Button onClick={() => setAllowDraw(true)} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Start Draw</Button>
+          <Button onClick={() => setAllowDraw(false)} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Stop</Button>
+          <Button onClick={handleClear} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Clear</Button>
+          <Button onClick={handleSend} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Send GeoJSON</Button>
+        </div>
       </div>
     );
   }
@@ -66,7 +78,7 @@ const RoiMap = withScriptjs(withGoogleMap(({
   }
 
   return (
-    <React.Fragment>
+    <div style={{}}>
       <GoogleMap
         ref={ref}
         defaultZoom={14}
@@ -102,7 +114,7 @@ const RoiMap = withScriptjs(withGoogleMap(({
         />
       </GoogleMap>
       {renderButtonGroup()}
-    </React.Fragment>
+    </div>
   );
 }));
 
