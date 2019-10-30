@@ -5,7 +5,9 @@ import Heatmap from 'components/Heatmap';
 
 function HeatmapWrapper() {
   return (
-    <Heatmap/>
+    <div style={{backgroundColor: '#fff', height: window.innerWidth*0.35/2, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <Heatmap/>
+    </div>
   );
 }
 

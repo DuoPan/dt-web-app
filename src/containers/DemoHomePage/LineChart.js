@@ -28,7 +28,8 @@ function LineChart({lineChartOption, serialNumber}) {
         series: [{
           data: lineChartOption.data[serialNumber.cur].y_value,
           type: 'line'
-        }]
+        }],
+        backgroundColor: '#fff'
       };
 
       chartInstance.setOption(options)
@@ -37,7 +38,7 @@ function LineChart({lineChartOption, serialNumber}) {
   );
 
   return (
-    <div ref={chartRef} className={styles.chart}/>
+    <div ref={chartRef} style={{width: window.innerWidth * 0.375, height: window.innerWidth * 0.35 / 2}}/>
   );
 }
 

@@ -25,7 +25,8 @@ function SelectBar({tileImages, serialNumber, doSelectSerialNumber}) {
     <div
       style={{
         margin: 'auto',
-        width: window.innerWidth * 0.75,
+        width: window.innerWidth * 0.8,
+        marginTop: 30,
       }}
     >
       <div

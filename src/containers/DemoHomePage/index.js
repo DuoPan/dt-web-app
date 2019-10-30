@@ -26,8 +26,10 @@ class Home extends React.Component {
         </div>
         <div className={styles.bt}>
           {this.props.tileImages.status === dataStatus.SUCCESS && <TileImageWrapper/>}
-          {this.props.heatmapOption.status === dataStatus.SUCCESS  && <HeatmapWrapper/>}
-          {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart/>)}
+          <div style={{width: window.innerWidth * 0.375, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginTop: 53}}>
+            {this.props.heatmapOption.status === dataStatus.SUCCESS  && <HeatmapWrapper/>}
+            {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart/>)}
+          </div>
         </div>
         <SelectBar/>
       </Layout>
