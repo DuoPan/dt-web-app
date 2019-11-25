@@ -4,8 +4,9 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/heatmap';
 import * as styles from '../../containers/DemoHomePage/styles.scss'
 import HeatmapGrid from 'react-heatmap-grid';
+import { clickHeatmap } from '../../actions'
 
-function Heatmap({heatmapOption, serialNumber}) {
+function Heatmap({heatmapOption, serialNumber, clickHeatmap}) {
   // const chartRef = useRef(null);
   // let chartInstance = null;
   //
@@ -79,9 +80,10 @@ function Heatmap({heatmapOption, serialNumber}) {
       yLabels={yLabels}
       data={data}
       background={'green'}
-      height={20}
+      height={8}
       squares={true}
       unit={'pd'}
+      onClick={(x, y) => clickHeatmap({x,y})}
       // cellStyle={(background, value, min, max, data, x, y) => ({
       //   background: `rgba(66, 86, 244, ${1 - (max - value) / (max - min)})`,
       //   fontSize: "11px",
@@ -101,6 +103,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    clickHeatmap: (payload) => dispatch(clickHeatmap(payload)),
   }
 }
 

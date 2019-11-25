@@ -10,7 +10,8 @@ import HeatmapWrapper from '../HeatmapWrapper';
 import TileImageWrapper from '../TileImageWrapper';
 import LineChart from './LineChart';
 import dataStatus from '../../constants/dataStatus'
-import SelectBar from './SelectBar';
+// import SelectBar from './SelectBar';
+import SliderBar from './SliderBar';
 
 class Home extends React.Component {
 
@@ -24,14 +25,15 @@ class Home extends React.Component {
             <RoiMapWrapper/>
           </div>
         </div>
-        <div className={styles.bt}>
+        {/*<SelectBar/>*/}
+        <SliderBar/>
+        <div className={styles.btop}>
           {this.props.tileImages.status === dataStatus.SUCCESS && <TileImageWrapper/>}
-          <div style={{width: window.innerWidth * 0.375, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginTop: 53}}>
-            {this.props.heatmapOption.status === dataStatus.SUCCESS  && <HeatmapWrapper/>}
-            {this.props.lineChartOption.status === dataStatus.SUCCESS && (<LineChart/>)}
-          </div>
+          {this.props.heatmapOption.status === dataStatus.SUCCESS  && <HeatmapWrapper/>}
         </div>
-        <SelectBar/>
+        <div className={styles.bt}>
+          {this.props.heatmapOption.status === dataStatus.SUCCESS && (<LineChart/>)}
+        </div>
       </Layout>
     );
   }
@@ -39,7 +41,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    lineChartOption: state.lineChartOption,
+    // lineChartOption: state.lineChartOption,
     heatmapOption: state.heatmapOption,
     tileImages: state.tileImages,
     serialNumber: state.serialNumber,

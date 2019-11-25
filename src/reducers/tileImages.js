@@ -9,11 +9,11 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.LOAD_TILE_IMAGES_SUCCESS: {
-      const {data} = action.payload;
+      const {payload} = action;
       return {
         ...state,
         status: dataStatus.SUCCESS,
-        data: data,
+        data: payload,
       };
     }
     case actionTypes.RESET_ALL_IMAGES: {

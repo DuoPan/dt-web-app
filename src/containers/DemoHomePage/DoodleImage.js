@@ -26,9 +26,9 @@ function DoodleImage() {
        :doodle {
          flex: none;
         @grid: 1x24;
-        @size: 80vw 400px;
+        @size: 80vw 300px;
       }
-      --transform: scale(@r(.8, 1.2)) translateX(@r(-200%, 200%)) translateY(@r(-5%, 35%));
+      --transform: scale(@r(.8, 1.2)) translateX(@r(-100%, 100%)) translateY(@r(-5%, 35%));
       z-index: 2;
       color: @pn(#fff, #8b4480, #f9d51e, #36a47b, #7db13c, #ea695c, #0059b2, #74a9c3);
       transform-origin: 50% 100%;
@@ -36,10 +36,10 @@ function DoodleImage() {
 
       ::before {
         position: absolute;
-        bottom: 240px;
-        left: -15px;
+        bottom: 180px;
+        left: 5px;
         content: "✿";
-        font-size: 100px;
+        font-size: 50px;
         -webkit-text-stroke: 3px;
       }
       ::after {
@@ -47,7 +47,7 @@ function DoodleImage() {
         bottom: 0;
         left: 0;
         content: "(";
-        font-size: 150px;
+        font-size: 100px;
         transform: rotate(60deg) skew(60deg) scale(1.2, 1.8);
       }
 

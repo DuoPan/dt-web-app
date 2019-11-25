@@ -15,18 +15,18 @@ function MyMenu({
 
   return (
     <div className={styles.rowSp}>
-      <img src={require('../../../asset/logo.png')} alt={'logo'} width={255} height={140} />
+      <img src={require('../../../asset/logo.png')} alt={'logo'} width={60} height={60} />
       <div className={styles.menu}>
         <div key="home" className={styles.item} style={{color: current === 'home' ? '#eee9a3' : '#fff'}} onClick={() => handleClick('home')}>
-          <Icon type="home" style={{fontSize: 36}}/>
+          <Icon type="home" style={{fontSize: 24}}/>
           &nbsp;Home
         </div>
         <div key="about" className={styles.item} style={{color: current === 'about' ? '#eee9a3' : '#fff'}} onClick={() => handleClick('about')}>
-          <Icon type="info-circle" style={{fontSize: 36}}/>
+          <Icon type="info-circle" style={{fontSize: 24}}/>
           &nbsp;About
         </div>
         <div key="team" className={styles.item} style={{color: current === 'team' ? '#eee9a3' : '#fff'}} onClick={() => handleClick('team')}>
-          <Icon type="team" style={{fontSize: 36}}/>
+          <Icon type="team" style={{fontSize: 24}}/>
           &nbsp;Team
         </div>
       </div>

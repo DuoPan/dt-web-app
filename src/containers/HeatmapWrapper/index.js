@@ -5,7 +5,7 @@ import Heatmap from 'components/Heatmap';
 
 function HeatmapWrapper() {
   return (
-    <div style={{backgroundColor: '#fff', height: window.innerWidth*0.35/2, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+    <div style={{transform: 'scale(0.7)', marginTop: -74}}>
       <Heatmap/>
     </div>
   );
@@ -22,3 +22,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeatmapWrapper);
+//    {/*<div style={{backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', width: window.innerWidth * 0.375, marginLef: '10%', marginRight: '10%'}}>*/}

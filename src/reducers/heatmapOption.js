@@ -4,6 +4,9 @@ import dataStatus from '../constants/dataStatus'
 const initialState = {
   status: dataStatus.INIT,
   data: [],
+  lineData: {},
+  clickedX: 0,
+  clickedY: 0,
 };
 
 // export default function (state = initialState, action) {
@@ -32,13 +35,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS: {
-      const { data } = action.payload;
+    case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS: {console.log('aaaa', action)
+      const { heatmap } = action.payload;
       let _data = [];
       let _single = [];
       let _x = 0;
       let _y = 0;
-      data.forEach(function (elem) {
+      heatmap.forEach(function (elem) {
         let hm = elem.heatmap;
         _single = [];
         hm.forEach(function(item) {
@@ -54,17 +57,32 @@ export default function (state = initialState, action) {
         for (let j = 0 ;j <= _y; ++ j) {
           let _a = [];
           for (let i = 0 ; i <= _x; ++ i) {
-            _a.push(hm[i+(_x+1)*j][2] + 1);
+            let _v = hm[i+(_x+1)*j][2];
+            if (_v === -1) {
+              _a.push(0);
+            } else {
+              _a.push(Math.floor(_v*100+1));
+            }
           }
+
           _single.push(_a);
         }
         let _newSingle = _single.reverse();
         _data.push(_newSingle);
-      });
+      });console.log('bbbb', _data)
       return {
         ...state,
         status: dataStatus.SUCCESS,
         data: _data,
+        lineData: action.payload.lineplot,
+      };
+    }
+    case actionTypes.CLICK_HEAT_MAP: {
+      const { x, y } = action.payload
+      return {
+        ...state,
+        clickedX: x,
+        clickedY: y,
       };
     }
     case actionTypes.RESET_ALL_IMAGES: {

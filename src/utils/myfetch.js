@@ -54,7 +54,7 @@ export default function myfetch ({ url, data, method = 'GET', headers = {}, data
   const p = Promise.race([
     fetch(fullUrl, options),
     new Promise((resolve, reject) => {
-      setTimeout(() => reject(new Error('网络加载超时')), 20000)
+      setTimeout(() => reject(new Error('网络加载超时')), 60000 * 20)
     })
   ])
   return p.then((response) => {

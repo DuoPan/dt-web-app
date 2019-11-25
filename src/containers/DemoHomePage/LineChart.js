@@ -3,11 +3,12 @@ import {connect} from 'react-redux'
 import * as styles from './styles.scss'
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
+import formatTimestamp from '../../utils/formatTimestamp'
 
-function LineChart({lineChartOption, serialNumber}) {
+function LineChart({heatmapOption}) {
   const chartRef = useRef(null);
   let chartInstance = null;
-
+console.log('heatmapOption.lineData',heatmapOption.lineData);
   useEffect(
     () => {
       const renderedInstance = echarts.getInstanceByDom(chartRef.current)
@@ -16,17 +17,27 @@ function LineChart({lineChartOption, serialNumber}) {
       } else {
         chartInstance = echarts.init(chartRef.current)
       }
-
+console.log('dddddd',heatmapOption.clickedX + '_' + heatmapOption.clickedY,heatmapOption.lineData[heatmapOption.clickedX + '_' + heatmapOption.clickedY]);
       const options = {
         xAxis: {
-          show: false,
-          data: lineChartOption.data[serialNumber.cur].x_value
+          // show: false,
+          // type: 'time',
+          data: heatmapOption.lineData[heatmapOption.clickedX + '_' + heatmapOption.clickedY].x_value,
+          axisLabel: {
+            interval: 10,
+            rotate: 45,
+            formatter: (function(value){
+              var theDate = new Date(Number(value));
+              theDate = theDate.toGMTString();
+              return theDate.substr(5,11);
+            })
+          }
         },
         yAxis: {
           show: false,
         },
         series: [{
-          data: lineChartOption.data[serialNumber.cur].y_value,
+          data: heatmapOption.lineData[heatmapOption.clickedX + '_' + heatmapOption.clickedY].y_value,
           type: 'line'
         }],
         backgroundColor: '#fff'
@@ -34,18 +45,17 @@ function LineChart({lineChartOption, serialNumber}) {
 
       chartInstance.setOption(options)
     },
-    [serialNumber.cur]
+    [heatmapOption.clickedX, heatmapOption.clickedY]
   );
 
   return (
-    <div ref={chartRef} style={{width: window.innerWidth * 0.375, height: window.innerWidth * 0.35 / 2}}/>
+    <div ref={chartRef} style={{width: window.innerWidth * 0.9, height: 300}}/>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    lineChartOption: state.lineChartOption,
-    serialNumber: state.serialNumber,
+    heatmapOption: state.heatmapOption,
   }
 };
 

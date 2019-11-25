@@ -1,20 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import formatTimestamp from '../../utils/formatTimestamp';
-import { Typography } from 'antd';
-
 
 function TileImageWrapper({tileImages, serialNumber}) {
   if (serialNumber.cur === -1 || tileImages.data.length <= serialNumber.cur) {
     return (<div/>);
   }
 
-  const {Title} = Typography;
-
   return (
-    <div>
-      <Title level={2}>{formatTimestamp(tileImages.data[serialNumber.cur].timestamp)}</Title>
-      <img src={tileImages.data[serialNumber.cur].file_uri} width={window.innerWidth * 0.375} height={window.innerWidth * 0.375}/>
+    <div style={{width: 400, height: 400}}>
+      <img src={'http://34.66.36.111:80' + tileImages.data[serialNumber.cur].file_uri} width={400} height={400} style={{transform: 'scaleY(-1)'}}/>
+      {/*<img src={tileImages.data[serialNumber.cur].file_uri} width={window.innerWidth * 0.375} style={{transform: 'scaleY(-1)'}}/>*/}
     </div>
   );
 }

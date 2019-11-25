@@ -9,7 +9,7 @@ import SearchRegion from '../../containers/DemoHomePage/SearchRegion';
 
 const RoiMap = withScriptjs(withGoogleMap(({
   region,
-  doLoadLineChartOption,
+  // doLoadLineChartOption,
   doLoadHeatmapOption,
   doLoadTileImages,
   doSelectSerialNumber,
@@ -39,7 +39,7 @@ const RoiMap = withScriptjs(withGoogleMap(({
 
   function handleSend() {
     const r = formatToGeoJSON(polygons);
-    doLoadLineChartOption(r);
+    // doLoadLineChartOption(r);
     doLoadHeatmapOption(r);
     doLoadTileImages(r);
     doSelectSerialNumber({cur: 0});
@@ -48,20 +48,20 @@ const RoiMap = withScriptjs(withGoogleMap(({
   function renderButtonGroup() {
     return (
       <div style={{display: 'flex'}}>
-        <div style={{width: 150}} />
+        <div style={{width: 50}} />
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            height: '35vw',
-            justifyContent: 'space-around',
+            height: '400px',
+            justifyContent: 'space-between',
           }}
         >
           <SearchRegion/>
           <Button onClick={() => setAllowDraw(true)} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Start Draw</Button>
           <Button onClick={() => setAllowDraw(false)} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Stop</Button>
           <Button onClick={handleClear} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Clear</Button>
-          <Button onClick={handleSend} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Send GeoJSON</Button>
+          <Button onClick={handleSend} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Confirm Selection</Button>
         </div>
       </div>
     );
@@ -69,11 +69,11 @@ const RoiMap = withScriptjs(withGoogleMap(({
 
   function onPolygonComplete(poly) {
     let area = google.maps.geometry.spherical.computeArea(poly.getPath());
-    if (area.toFixed(2) >= 10000000) {
-      poly.setMap(null);
-      alert('Too Big Area');
-      return;
-    }
+    // if (area.toFixed(2) >= 10000000) {
+    //   poly.setMap(null);
+    //   alert('Too Big Area');
+    //   return;
+    // }
     setPolygons([...polygons, poly]);
   }
 
@@ -83,6 +83,7 @@ const RoiMap = withScriptjs(withGoogleMap(({
         ref={ref}
         defaultZoom={14}
         center={center}
+        mapTypeId={'satellite'}
         onCenterChanged={() => setCenter({lat: ref.current.getCenter().lat(), lng: ref.current.getCenter().lng()})}
       >
         <DrawingManager
@@ -126,7 +127,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    doLoadLineChartOption: (payload) => dispatch(loadLineChartOption(payload)),
+    // doLoadLineChartOption: (payload) => dispatch(loadLineChartOption(payload)),
     doLoadHeatmapOption: (payload) => dispatch(loadHeatmapOption(payload)),
     doLoadTileImages: (payload) => dispatch(loadTileImages(payload)),
     doSelectSerialNumber: (payload) => dispatch(selectSerialNumber(payload)),

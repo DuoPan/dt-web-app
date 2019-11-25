@@ -2,8 +2,8 @@ import actionTypes from "../constants/action-types";
 
 const initialState = {
   name: 'Melbourne',
-  lat: -37.817252,
-  lng: 144.947494,
+  lat: -20.570043246963264,
+  lng: 148.65709030303114,
 };
 
 export default function (state = initialState, action) {
