@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {withScriptjs, withGoogleMap, GoogleMap} from 'react-google-maps';
-const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
-import {Button} from 'antd';
-import formatToGeoJSON from '../../utils/formatToGeoJSON';
+import React, {useState, useEffect, Fragment} from 'react'
+import {withScriptjs, withGoogleMap, GoogleMap} from 'react-google-maps'
+const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager")
+import {Button, Row, Col} from 'antd'
+import formatToGeoJSON from '../../utils/formatToGeoJSON'
 import { connect } from 'react-redux'
-import {loadLineChartOption, loadHeatmapOption, loadTileImages, selectSerialNumber, resetAllImages} from '../../actions';
-import SearchRegion from '../../containers/DemoHomePage/SearchRegion';
+import {loadLineChartOption, loadHeatmapOption, loadTileImages, selectSerialNumber, resetAllImages} from '../../actions'
+import SearchRegion from '../../containers/DemoHomePage/SearchRegion'
 
 const RoiMap = withScriptjs(withGoogleMap(({
   region,
@@ -15,66 +15,75 @@ const RoiMap = withScriptjs(withGoogleMap(({
   doSelectSerialNumber,
   doResetAllImages,
 }) => {
-  const [center, setCenter] = useState({lat: region.lat, lng: region.lng});
-  const [allowDraw, setAllowDraw] = useState(false);
-  const ref = React.createRef();
-  const [polygons, setPolygons] = useState([]);
+  const [center, setCenter] = useState({lat: region.lat, lng: region.lng})
+  const [allowDraw, setAllowDraw] = useState(false)
+  const ref = React.createRef()
+  const [polygons, setPolygons] = useState([])
 
   useEffect(
     () => {
       setCenter({lat: region.lat, lng: region.lng})
     },
     [region]
-  );
+  )
 
-  function handleClear() {
+  function handleClear () {
     polygons.map(poly => {
-      console.log('clear polygon', poly);
-      poly.setMap(null);
-    });
-    setPolygons([]);
-    doSelectSerialNumber({cur: -1});
-    doResetAllImages();
+      console.log('clear polygon', poly)
+      poly.setMap(null)
+    })
+    setPolygons([])
+    doSelectSerialNumber({cur: -1})
+    doResetAllImages()
   }
 
-  function handleSend() {
-    const r = formatToGeoJSON(polygons);
-    // doLoadLineChartOption(r);
-    doLoadHeatmapOption(r);
-    doLoadTileImages(r);
-    doSelectSerialNumber({cur: 0});
+  function handleSend () {
+    const r = formatToGeoJSON(polygons)
+    // doLoadLineChartOption(r)
+    // doLoadHeatmapOption(r)
+    console.log(r)
+    doLoadTileImages(r)
+    doSelectSerialNumber({cur: 0})
   }
 
-  function renderButtonGroup() {
+  function renderButtonGroup () {
     return (
-      <div style={{display: 'flex'}}>
-        <div style={{width: 50}} />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '400px',
-            justifyContent: 'space-between',
-          }}
-        >
-          <SearchRegion/>
-          <Button onClick={() => setAllowDraw(true)} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Start Draw</Button>
-          <Button onClick={() => setAllowDraw(false)} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Stop</Button>
-          <Button onClick={handleClear} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Clear</Button>
-          <Button onClick={handleSend} style={{width: '12vw', height: 50, backgroundColor: '#55a34e', color: '#fff'}}>Confirm Selection</Button>
-        </div>
-      </div>
-    );
+      <Fragment>
+        <Row gutter={10} style={{marginTop: 20}}>
+          <Col span={12}>
+            <SearchRegion />
+          </Col>
+          <Col span={12}>
+            <Button onClick={() => setAllowDraw(!allowDraw)} style={{ 
+              width: '100%',
+              height: 50,
+              backgroundColor: allowDraw ? '#eee9a3' : '#55a34e',
+              color: allowDraw ? '#333' : '#fff' }}>Toggle Draw</Button>
+          </Col>
+          {/* <Col span={4}>
+          <Button onClick={() => setAllowDraw(false)} style={{ width: '100%', height: 50, backgroundColor: '#55a34e', color: '#fff' }}>Stop</Button>
+        </Col> */} 
+        </Row>
+        <Row gutter={10} style={{ marginTop: 10 }}>
+          <Col span={12}>
+            <Button onClick={handleClear} style={{ width: '100%', height: 50, backgroundColor: '#55a34e', color: '#fff' }}>Clear</Button>
+          </Col>
+          <Col span={12}>
+            <Button onClick={handleSend} style={{ width: '100%', height: 50, backgroundColor: '#55a34e', color: '#fff' }}>Confirm</Button>
+          </Col>
+        </Row>
+      </Fragment>
+    )
   }
 
-  function onPolygonComplete(poly) {
-    let area = google.maps.geometry.spherical.computeArea(poly.getPath());
+  function onPolygonComplete (poly) {
+    let area = google.maps.geometry.spherical.computeArea(poly.getPath())
     // if (area.toFixed(2) >= 10000000) {
-    //   poly.setMap(null);
-    //   alert('Too Big Area');
-    //   return;
+    //   poly.setMap(null)
+    //   alert('Too Big Area')
+    //   return
     // }
-    setPolygons([...polygons, poly]);
+    setPolygons([...polygons, poly])
   }
 
   return (
@@ -116,8 +125,8 @@ const RoiMap = withScriptjs(withGoogleMap(({
       </GoogleMap>
       {renderButtonGroup()}
     </div>
-  );
-}));
+  )
+}))
 
 const mapStateToProps = state => {
   return {
@@ -135,4 +144,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoiMap);
+export default connect(mapStateToProps, mapDispatchToProps)(RoiMap)

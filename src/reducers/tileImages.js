@@ -8,6 +8,11 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case actionTypes.LOAD_TILE_IMAGES:
+      return {
+        data: [],
+        status: dataStatus.LOADING
+      }
     case actionTypes.LOAD_TILE_IMAGES_SUCCESS: {
       const {payload} = action;
       return {

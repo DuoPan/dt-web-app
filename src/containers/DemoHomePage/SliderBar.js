@@ -9,17 +9,21 @@ import './styles.scss'
 
 function SliderBar({tileImages, serialNumber, doSelectSerialNumber}) {
   if (serialNumber.cur === -1 || tileImages.data.length <= serialNumber.cur) {
-    return (<div/>);
+    return (<div/>)
   }
 
   const handleChange = debounce((v) => {
-    doSelectSerialNumber({cur: v});
+    doSelectSerialNumber({cur: v})
   }, 1000)
 
   return (
-    <div style={{marginLeft: '15%', marginRight: '15%', marginTop: 20, marginBottom: 20}}  >
-      {tileImages.status === dataStatus.SUCCESS && (<Typography.Title level={2} style={{color: '#555', textAlign: 'center'}}>{formatTimestamp(tileImages.data[serialNumber.cur].timestamp)}</Typography.Title>)}
-      <Slider  defaultValue={0} min={0} max={tileImages.data.length - 1} tipFormatter={null} onChange={handleChange} />
+    <div style={{marginLeft: '15%', marginRight: '15%', marginTop: 20, marginBottom: 20}}>
+      {tileImages.status === dataStatus.SUCCESS && (<Typography.Title level={4} style={{color: '#555', textAlign: 'center'}}>{formatTimestamp(tileImages.data[serialNumber.cur].timestamp)}</Typography.Title>)}
+      <Slider
+        defaultValue={tileImages.data.length - 1}
+        min={0}
+        max={tileImages.data.length - 1}
+        tipFormatter={null} onChange={handleChange} />
     </div>
   );
 }
@@ -27,7 +31,7 @@ function SliderBar({tileImages, serialNumber, doSelectSerialNumber}) {
 const mapStateToProps = state => {
   return {
     tileImages: state.tileImages,
-    serialNumber: state.serialNumber,
+    serialNumber: state.serialNumber
   }
 }
 

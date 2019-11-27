@@ -17,7 +17,7 @@ module.exports = (env) => {
     entry: {
       hotloader: [
         'react-hot-loader/patch',
-        'webpack-dev-server/client?https://localhost:8088',
+        'webpack-dev-server/client?https://localhost:8089',
         'webpack/hot/only-dev-server'
       ],
       bundle: ['babel-polyfill', path.resolve(__dirname, '../src/index.js')]

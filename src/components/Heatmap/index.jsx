@@ -1,110 +1,73 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useState} from 'react'
 import { connect } from 'react-redux'
-import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/heatmap';
-import * as styles from '../../containers/DemoHomePage/styles.scss'
-import HeatmapGrid from 'react-heatmap-grid';
-import { clickHeatmap } from '../../actions'
+import 'echarts/lib/chart/heatmap'
+import HeatmapGrid from 'react-heatmap-grid'
+import { clickHeatmap, loadPrediction } from 'actions'
 
-function Heatmap({heatmapOption, serialNumber, clickHeatmap}) {
-  // const chartRef = useRef(null);
-  // let chartInstance = null;
-  //
-  // useEffect(
-  //   () => {
-  //     const renderedInstance = echarts.getInstanceByDom(chartRef.current)
-  //     if (renderedInstance) {
-  //       chartInstance = renderedInstance
-  //     } else {
-  //       chartInstance = echarts.init(chartRef.current)
-  //     }
-  //
-  //     const options = {
-  //       grid: {
-  //         height: '50%',
-  //         y: '10%'
-  //       },
-  //       xAxis: {
-  //         show: false,
-  //       },
-  //       yAxis: {
-  //         show: false,
-  //       },
-  //       visualMap: {
-  //         min: 0,
-  //         max: 20,
-  //         calculable: true,
-  //         orient: 'horizontal',
-  //         left: 'center',
-  //         bottom: '15%',
-  //         color: ['#d94e5d','#eac736','#50a3ba'],
-  //       },
-  //       series: [{
-  //         name: 'Punch Card',
-  //         type: 'heatmap',
-  //         data: heatmapOption.data[serialNumber.cur],
-  //         label: {
-  //           normal: {
-  //             show: true
-  //           }
-  //         },
-  //         itemStyle: {
-  //           emphasis: {
-  //             shadowBlur: 10,
-  //             shadowColor: 'rgba(0, 0, 0, 0.5)'
-  //           }
-  //         }
-  //       }]
-  //     };
-  //     chartInstance.setOption(options);
-  //   },
-  //   [serialNumber.cur]
-  // );
-  //
-  // return (
-  //   <div ref={chartRef} className={styles.chart}/>
-  // );
-
-
+function Heatmap ({heatmapOption, tileImages, serialNumber, clickHeatmap, loadPrediction}) {
   if (serialNumber.cur < 0 || serialNumber.cur >= heatmapOption.data.length) {
-    return (<div/>);
+    return (<div />)
   }
 
-  const xLabels = new Array(heatmapOption.data[serialNumber.cur][0].length).fill(0).map((_, i) => '');
-  const yLabels = new Array(heatmapOption.data[serialNumber.cur].length).fill(0).map((_, i) => '');
-  const data=heatmapOption.data[serialNumber.cur];
+  const xLabels = new Array(heatmapOption.data[serialNumber.cur][0].length).fill(0).map((_, i) => '')
+  const yLabels = new Array(heatmapOption.data[serialNumber.cur].length).fill(0).map((_, i) => '')
+  const data = heatmapOption.data[serialNumber.cur]
+  const wrapEl = useRef(null)
+
+  const [selectedCell, setSelectedCell] = useState([])
+
+  const imgSize = wrapEl && wrapEl.current ? wrapEl.current.clientWidth : 'auto'
+
+  const cellHeight = data ? imgSize / data.length - 1 : 300
+
+  const onClick = (x, y) => {
+    setSelectedCell([x, y])
+    clickHeatmap({ x, y })
+    const val = _.map(heatmapOption.data, (data) => data[y][x])
+    const ds = _.map(tileImages.data, h => h.timestamp)
+    loadPrediction(ds, val)
+  }
 
   return (
-    <HeatmapGrid
-      xLabels={xLabels}
-      yLabels={yLabels}
-      data={data}
-      background={'green'}
-      height={8}
-      squares={true}
-      unit={'pd'}
-      onClick={(x, y) => clickHeatmap({x,y})}
-      // cellStyle={(background, value, min, max, data, x, y) => ({
-      //   background: `rgba(66, 86, 244, ${1 - (max - value) / (max - min)})`,
-      //   fontSize: "11px",
-      // })}
+    <div ref={wrapEl} style={{width: '100%', height: imgSize}}>
+      <HeatmapGrid
+        xLabels={xLabels}
+        yLabels={yLabels}
+        xLabelWidth={0}
+        yLabelWidth={0}
+        data={data}
+        background={'green'}
+        squares
+        height={cellHeight}
+        unit={'pd'}
+        onClick={onClick}
+        cellStyle={(background, value, min, max, data, x, y) => ({
+          background: value === -1 ? '#000' : `rgba(66, 86, 244, ${value / 100})`,
+          border: x === selectedCell[0] && y === selectedCell[1] ? '1px solid red' : 'none'
+        })}
       // cellRender={value => value && `${value}`}
-    />
-  );
+      />
+    </div>
+  )
 }
-
 
 const mapStateToProps = state => {
   return {
     heatmapOption: state.heatmapOption,
     serialNumber: state.serialNumber,
+    tileImages: state.tileImages
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    clickHeatmap: (payload) => dispatch(clickHeatmap(payload)),
+    clickHeatmap: (payload) => {
+      dispatch(clickHeatmap(payload))
+    },
+    loadPrediction: (ds, y) => {
+      dispatch(loadPrediction({ds, y}))
+    }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Heatmap);
+export default connect(mapStateToProps, mapDispatchToProps)(Heatmap)

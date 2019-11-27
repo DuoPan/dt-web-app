@@ -4,9 +4,8 @@ import dataStatus from '../constants/dataStatus'
 const initialState = {
   status: dataStatus.INIT,
   data: [],
-  lineData: {},
-  clickedX: 0,
-  clickedY: 0,
+  clickedX: -1,
+  clickedY: -1,
 };
 
 // export default function (state = initialState, action) {
@@ -35,8 +34,15 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case actionTypes.LOAD_HEAT_MAP_OPTION:
+      return {
+        data: [],
+        status: dataStatus.LOADING,
+        clickedX: -1,
+        clickedY: -1
+      }
     case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS: {console.log('aaaa', action)
-      const { heatmap } = action.payload;
+      const heatmap = action.payload;
       let _data = [];
       let _single = [];
       let _x = 0;
@@ -73,8 +79,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         status: dataStatus.SUCCESS,
-        data: _data,
-        lineData: action.payload.lineplot,
+        data: _data
       };
     }
     case actionTypes.CLICK_HEAT_MAP: {
