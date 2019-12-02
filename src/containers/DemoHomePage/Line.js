@@ -6,6 +6,13 @@ import formatTime from 'utils/formatTimestamp'
 const getOption = (props) => {
   const { dataSource = [] } = props
   const option = {
+    grid: {
+      width: '90%',
+      height: '80%',
+      containLabel: true,
+      top: '15%',
+      left: '5%'
+    },
     tooltip: {
       trigger: 'axis'
     },
@@ -17,8 +24,10 @@ const getOption = (props) => {
       data: _.map(dataSource[0] && dataSource[0].data, d => d.x)
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
+      splitLine: {show: false}
     },
+    color: ['#20639b', '#ed553b'],
     series: _.map(dataSource, (series, i) => ({
       type: 'line',
       ...series,

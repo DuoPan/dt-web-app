@@ -29,7 +29,7 @@ class Home extends React.Component {
           <Row gutter={20}>
             <DoodleImage />
           </Row>
-          <Row style={{ padding: '40px 50px' }} gutter={20}>
+          <Row style={{ padding: '40px 50px' }} gutter={40}>
             <Col span={10}>
               <div style={cardStyle}>
                 <RoiMapWrapper />
@@ -56,7 +56,7 @@ class Home extends React.Component {
                     }
                   </Col>
                 </Row>
-                <div style={{width: '100%'}}>
+                <div style={{width: '100%', marginTop: 20}}>
                   {heatmapOption.clickedX !== -1 && heatmapOption.clickedY !== -1 && (<LineChart />)}
                 </div>
               </div>

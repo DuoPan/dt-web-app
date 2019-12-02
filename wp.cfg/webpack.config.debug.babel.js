@@ -33,13 +33,13 @@ module.exports = (env) => {
       // https: true,
       historyApiFallback: true,
       // for CORS
-      // proxy: {
-      //   '/api/*': {
-      //     target: 'http://xxxxxxx:5000',
-      //     secure: false,
-      //     changeOrigin: true
-      //   }
-      // }
+      proxy: {
+        'http://localhost:8089/api/*': {
+          target: 'http://35.209.7.185',
+          secure: false,
+          changeOrigin: true
+        }
+      }
     },
     module: {
       rules: [

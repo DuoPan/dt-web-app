@@ -86,13 +86,27 @@ const RoiMap = withScriptjs(withGoogleMap(({
     setPolygons([...polygons, poly])
   }
 
+  function createOptions (maps) {
+    return {
+      zoomControlOptions: {
+        position: maps.ControlPosition.RIGHT_CENTER,
+        style: maps.ZoomControlStyle.SMALL
+      },
+      mapTypeControlOptions: {
+        position: maps.ControlPosition.TOP_RIGHT
+      },
+      mapTypeControl: false
+    }
+  }
+
   return (
     <div style={{}}>
       <GoogleMap
         ref={ref}
-        defaultZoom={14}
+        defaultZoom={13}
         center={center}
         mapTypeId={'satellite'}
+        options={createOptions}
         onCenterChanged={() => setCenter({lat: ref.current.getCenter().lat(), lng: ref.current.getCenter().lng()})}
       >
         <DrawingManager

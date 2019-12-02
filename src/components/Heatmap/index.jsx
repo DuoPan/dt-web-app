@@ -28,6 +28,8 @@ function Heatmap ({heatmapOption, tileImages, serialNumber, clickHeatmap, loadPr
     loadPrediction(ds, val)
   }
 
+  console.log('yy', data)
+
   return (
     <div ref={wrapEl} style={{width: '100%', height: imgSize}}>
       <HeatmapGrid
@@ -42,7 +44,7 @@ function Heatmap ({heatmapOption, tileImages, serialNumber, clickHeatmap, loadPr
         unit={'pd'}
         onClick={onClick}
         cellStyle={(background, value, min, max, data, x, y) => ({
-          background: value === -1 ? '#000' : `rgba(66, 86, 244, ${value / 100})`,
+          background: value === -1 ? 'rgba(0,0,0,0)' : `rgba(66, 86, 244, ${Math.min((value + 20) / 100, 1)})`,
           border: x === selectedCell[0] && y === selectedCell[1] ? '1px solid red' : 'none'
         })}
       // cellRender={value => value && `${value}`}

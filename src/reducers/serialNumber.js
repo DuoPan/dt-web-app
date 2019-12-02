@@ -13,6 +13,12 @@ export default function (state = initialState, action) {
         cur: cur,
       };
     }
+    case actionTypes.LOAD_TILE_IMAGES_SUCCESS:
+    case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS:
+      return {
+        ...state,
+        cur: action.payload.length - 1
+      }
     default:
       return state;
   }

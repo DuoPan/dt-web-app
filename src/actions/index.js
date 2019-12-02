@@ -57,7 +57,7 @@ export const loadHeatmapOption = (geoJson) => {
       aTypes.LOAD_HEAT_MAP_OPTION_ERROR,
     ],
     callAPI: async store => {
-      const resp = await api.loadHeatmapOptionApi(geoJson)
+      const resp = await api.loadHeatmapOptionApi(geoJson.geo_json)
       return resp
     },
     errorHandler: e => {
@@ -74,7 +74,7 @@ export const loadTileImages = (geoJson) => {
       aTypes.LOAD_TILE_IMAGES_ERROR
     ],
     callAPI: async store => {
-      const resp = await api.loadTileImagesApi(geoJson)
+      const resp = await api.loadTileImagesApi(geoJson.geo_json)
       store.dispatch(loadHeatmapOption(geoJson))
       return resp
     },

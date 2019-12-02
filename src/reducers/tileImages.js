@@ -13,6 +13,11 @@ export default function (state = initialState, action) {
         data: [],
         status: dataStatus.LOADING
       }
+    case actionTypes.LOAD_TILE_IMAGES_ERROR:
+      return {
+        data: [],
+        status: dataStatus.ERROR
+      }
     case actionTypes.LOAD_TILE_IMAGES_SUCCESS: {
       const {payload} = action;
       return {

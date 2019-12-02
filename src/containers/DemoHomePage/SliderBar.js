@@ -17,7 +17,7 @@ function SliderBar({tileImages, serialNumber, doSelectSerialNumber}) {
   }, 1000)
 
   return (
-    <div style={{marginLeft: '15%', marginRight: '15%', marginTop: 20, marginBottom: 20}}>
+    <div style={{heihgt: 50, marginBottom: 20}}>
       {tileImages.status === dataStatus.SUCCESS && (<Typography.Title level={4} style={{color: '#555', textAlign: 'center'}}>{formatTimestamp(tileImages.data[serialNumber.cur].timestamp)}</Typography.Title>)}
       <Slider
         defaultValue={tileImages.data.length - 1}

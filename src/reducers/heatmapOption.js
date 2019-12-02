@@ -41,45 +41,27 @@ export default function (state = initialState, action) {
         clickedX: -1,
         clickedY: -1
       }
-    case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS: {console.log('aaaa', action)
+    case actionTypes.LOAD_HEAT_MAP_OPTION_SUCCESS: {
       const heatmap = action.payload;
-      let _data = [];
-      let _single = [];
-      let _x = 0;
-      let _y = 0;
-      heatmap.forEach(function (elem) {
-        let hm = elem.heatmap;
-        _single = [];
-        hm.forEach(function(item) {
-          if(item[1] > _x) {
-            _x = item[1];
-          }
-          if(item[0] > _y) {
-            _y = item[0];
-          }
-        });
-       // console.log(_x, _y,'------');//23, 6
-
-        for (let j = 0 ;j <= _y; ++ j) {
-          let _a = [];
-          for (let i = 0 ; i <= _x; ++ i) {
-            let _v = hm[i+(_x+1)*j][2];
-            if (_v === -1) {
-              _a.push(0);
-            } else {
-              _a.push(Math.floor(_v*100+1));
-            }
-          }
-
-          _single.push(_a);
+      
+      const data = []
+      for (const s in heatmap) {
+        const step = Array(32)
+        for (let i = 0; i < 32; i++) {
+          step[i] = Array(32)
         }
-        let _newSingle = _single.reverse();
-        _data.push(_newSingle);
-      });console.log('bbbb', _data)
+        for (const d of heatmap[s].heatmap) {
+          const x = d[0]
+          const y = d[1]
+          const v = d[2]
+          step[x][y] = v === -1 ? v : v * 100
+        }
+        data.push(step)
+      }
       return {
         ...state,
         status: dataStatus.SUCCESS,
-        data: _data
+        data
       };
     }
     case actionTypes.CLICK_HEAT_MAP: {

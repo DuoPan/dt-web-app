@@ -14,7 +14,7 @@ function TileImageWrapper ({tileImages, serialNumber}) {
 
   return (
     <div style={{ width: '100%' }} ref={wrapEl}>
-      <img src={url} width={imgSize} height={imgSize} style={{transform: 'scaleY(-1)'}} />
+      <img src={url} width={imgSize} height={imgSize} style={{}} />
       {/*<img src={tileImages.data[serialNumber.cur].file_uri} width={window.innerWidth * 0.375} style={{transform: 'scaleY(-1)'}}/>*/}
     </div>
   )
